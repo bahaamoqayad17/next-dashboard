@@ -12,12 +12,12 @@ import NavItem from "./NavItem";
 import Image from "next/image";
 const items = [
   {
-    href: "/",
+    href: "/admin/",
     icon: <ChartBarIcon fontSize="small" />,
     title: "Dashboard",
   },
   {
-    href: "/products",
+    href: "/admin/products",
     icon: <ProductionQuantityLimitsIcon fontSize="small" />,
     title: "products",
   },

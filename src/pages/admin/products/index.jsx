@@ -8,12 +8,12 @@ import CardContent from "@mui/material/CardContent";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SvgIcon from "@mui/material/SvgIcon";
-import Layout from "@/components/dashboard/Layout";
-import DynamicModal from "@/components/GlobalComponents/DynamicModel";
+import DynamicModal from "@/components/GlobalComponents/DynamicModal";
 import DataTable from "@/components/GlobalComponents/DataTable";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import DashboardLayout from "@/components/admin/DashboardLayout";
 const Page = () => {
   const { t } = useTranslation();
   const getPagination = (page, limit) => {
@@ -103,6 +103,6 @@ const Page = () => {
   );
 };
 
-Page.getLayout = (page) => <Layout>{page}</Layout>;
+Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;

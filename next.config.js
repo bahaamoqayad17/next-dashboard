@@ -2,6 +2,7 @@
 const nextConfig = {
   env: {
     APP_NAME: "Next Dashboard",
+    API_URL: "",
   },
   reactStrictMode: true,
 };

@@ -12,8 +12,15 @@ import TableRow from "@mui/material/TableRow";
 import { useTranslation } from "react-i18next";
 import { resources } from "@/lib/resources";
 import DynamicMenu from "./DynamicMenu";
+import { CircularProgress } from "@mui/material";
 
-export default function DataTable({ items, getPagination, count, model }) {
+export default function DataTable({
+  items,
+  getPagination,
+  count,
+  model,
+  loading,
+}) {
   const { t } = useTranslation();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -21,12 +28,28 @@ export default function DataTable({ items, getPagination, count, model }) {
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
+
   useEffect(() => {
     getPagination(page, limit);
   }, [page, limit]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
+  };
+
+  const getFieldValue = (object, field) => {
+    const fieldPath = field.split(".");
+    let value = object;
+    for (let path of fieldPath) {
+      value = value[path];
+      if (value === undefined) break;
+    }
+
+    if (typeof value === "string" && value.startsWith("https")) {
+      return <img src={value} alt="Image" width={"60"} height={"60"} />;
+    }
+
+    return value;
   };
 
   return (
@@ -44,20 +67,34 @@ export default function DataTable({ items, getPagination, count, model }) {
                 <TableCell>{t("actions")}</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {items?.map((item) => (
-                <TableRow hover key={item._id}>
-                  {resources[model]?.fields?.map((field) => (
-                    <TableCell key={field} color="textPrimary" variant="body1">
-                      {item.field}
-                    </TableCell>
-                  ))}
-                  <TableCell>
-                    <DynamicMenu model={model} item={item} />
+            {loading ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell colSpan={20} align="center">
+                    <CircularProgress />
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
+              </TableBody>
+            ) : (
+              <TableBody>
+                {items?.map((item) => (
+                  <TableRow hover key={item._id}>
+                    {resources[model]?.fields?.map((field) => (
+                      <TableCell
+                        key={field}
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        {getFieldValue(item, field)}
+                      </TableCell>
+                    ))}
+                    <TableCell>
+                      <DynamicMenu model={model} item={item} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            )}
           </Table>
         </Box>
       </PerfectScrollbar>
@@ -68,7 +105,7 @@ export default function DataTable({ items, getPagination, count, model }) {
         onRowsPerPageChange={handleLimitChange}
         page={page}
         rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[10]}
       />
     </Card>
   );

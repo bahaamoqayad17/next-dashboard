@@ -1,5 +1,8 @@
-import PropTypes from "prop-types";
-import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import MenuList from "@mui/material/MenuList";
+import MenuItem from "@mui/material/MenuItem";
 import { useTranslation } from "react-i18next";
 
 export default function AccountPopover(props) {
@@ -56,9 +59,3 @@ export default function AccountPopover(props) {
     </Popover>
   );
 }
-
-AccountPopover.propTypes = {
-  anchorEl: PropTypes.any,
-  onClose: PropTypes.func,
-  open: PropTypes.bool.isRequired,
-};

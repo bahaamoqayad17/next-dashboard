@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import NavBar from "./NavBar";
 import Sidebar from "./SideBar";
@@ -14,7 +14,7 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   },
 }));
 
-export default function Layout(props) {
+export default function DashboardLayout(props) {
   const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
 

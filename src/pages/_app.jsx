@@ -1,9 +1,7 @@
 import Head from "next/head";
 import { CacheProvider } from "@emotion/react";
-import { CssBaseline } from "@mui/material";
+import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
-import { createEmotionCache } from "../utils/create-emotion-cache";
-import { registerChartJs } from "../utils/register-chart-js";
 import { theme } from "../theme";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
@@ -17,11 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { store } from "../store";
 import { Provider } from "react-redux";
 
-registerChartJs();
-
-const clientSideEmotionCache = createEmotionCache();
-
-export default function App(props) {
+export default function App({ Component }) {
   const { i18n } = useTranslation();
   const [lang, setLang] = useState(
     globalThis.localStorage?.getItem("i18nextLng")
@@ -54,8 +48,6 @@ export default function App(props) {
     import("../theme/DataTable-ar.css");
   }
 
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
@@ -68,7 +60,7 @@ export default function App(props) {
         <ThemeProvider theme={theme}>
           <ToastContainer />
           <CssBaseline />
-          {getLayout(<Component {...pageProps} />)}
+          {getLayout(<Component />)}
         </ThemeProvider>
       </CacheProvider>
     </Provider>

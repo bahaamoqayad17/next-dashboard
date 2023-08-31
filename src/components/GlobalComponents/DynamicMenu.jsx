@@ -6,7 +6,7 @@ import { Edit as EditIcon } from "../../icons/edit";
 import { Delete as DeleteIcon } from "../../icons/delete";
 import { Show as ShowIcon } from "../../icons/show";
 import { EditPen as EditPenIcon } from "../../icons/editPen";
-import DynamicModal from "./DynamicModel";
+import DynamicModal from "./DynamicModal";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
